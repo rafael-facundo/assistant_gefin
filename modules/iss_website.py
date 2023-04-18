@@ -8,7 +8,7 @@ import time
 def anti_captcha(captcha_img: str) -> str:
     solver = imagecaptcha()
     solver.set_verbose(1)
-    solver.set_key("32de7a9e64b12072de66663439c86b58")
+    solver.set_key("2ab05e6bf0186f7724d613b158b7365f")
 
     solver.set_soft_id(0)
 
