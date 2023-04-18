@@ -6,6 +6,9 @@ from modules.boleto import open_pdf_and_save_pages
 from modules.iss_website import log_in_and_download_sesi_dr
 from modules.read_excel import excel_sesi_dr
 
+# nova chave 2ab05e6bf0186f7724d613b158b7365f
+# email_password jiitxvjdnglplqxx
+
 def start_dialog(op_list: list[str]):
     dialog = Assistant()
     dialog.add_drop_down("website_choice",
@@ -36,6 +39,7 @@ if __name__ == "__main__":
 
         workbook_path = user_input_dict.get("input_excel_file")[0]
         list_of_client_info = excel_sesi_dr(workbook_path)
+        list_of_client_info[0].email
 
         if user_input_dict.get("website_choice") == op_list[0]: #Separar boletos
             boleto_path = user_input_dict.get("add_pdf_file")[0]
