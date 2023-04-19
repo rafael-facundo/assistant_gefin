@@ -43,6 +43,7 @@ def start_dialog(op_list: list[str]):
     dialog.add_submit_buttons(["Executar", "Cancelar"])
     user_input = dialog.run_dialog(90000, title="Assistente - GEFIN", height=550, width=400)
 
+
     return user_input
 
 op_list = [
