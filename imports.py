@@ -65,8 +65,13 @@ def send_email(list_of_client_info: list[ClientInfo], nfs_directory: str, boleto
         mail.authorize(account=gmail_account, password=gmail_app_password)
         mail.send_message(sender=gmail_account,
                             recipients= info.email,
-                            subject="Email Test",
-                            body="email test",
+                            subject=f"NF {info.number} RPS {info.rps} - {info.name}",
+                            body=f"""Prezado(a) cliente, bom dia. \n\n
+Seguem anexos nota fiscal e boleto referente ao serviço solicitado \n
+Para informações complementares relacionadas a nota fiscal, entrar em contato com a área de faturamento: 3421.5894 / gefin.iel@sfiec.org.br.\n\n
+Por gentileza, confirmar o recebimento e encaminhar ao responsável financeiro de sua empresa.\n\n
+att,\n\n
+Equipe de faturamento.""",
                             attachments=[nf, boleto])
         
 #função para interface visual

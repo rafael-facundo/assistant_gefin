@@ -4,10 +4,10 @@ from pathlib import Path
 from RPA.Browser.Selenium import Selenium
 
 op_list = [
-    "SEPARAR BOLETOS", "SESI DR", "SESI Parangaba", 'SESI Barra', 'SESI NR Saúde (Centro)',
-            'SENAI DR', 'SENAI AUA', 'SENAI AABMS', 'SENAI WDS', 'IEL', 'FIEC', 
-            'SESI Albano', 'SESI Clube', 'SENAI CETAFR', 'SENAI ISTEMM', 'SESI Juazeiro', 
-            'SENAI WCC', 'SESI Sobral', 'SENAI Sobral', "Enviar Notas e Boletos"
+    "SEPARAR BOLETOS", "BAIXAR SESI DR", "BAIXAR SESI Parangaba", 'BAIXAR SESI Barra', 'BAIXAR SESI NR Saúde (Centro)',
+            'BAIXAR SENAI DR', 'BAIXAR SENAI AUA', 'BAIXAR SENAI AABMS', 'BAIXAR SENAI WDS', 'BAIXAR IEL', 'BAIXAR FIEC', 
+            'BAIXAR SESI Albano', 'BAIXAR SESI Clube', 'BAIXAR SENAI CETAFR', 'BAIXAR SENAI ISTEMM', 'BAIXAR SESI Juazeiro', 
+            'BAIXAR SENAI WCC', 'BAIXAR SESI Sobral', 'BAIXAR SENAI Sobral', "Enviar Notas e Boletos"
             ]
 
 user_input_dict = imports.start_dialog(op_list)
