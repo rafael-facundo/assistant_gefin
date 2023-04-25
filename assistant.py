@@ -31,6 +31,19 @@ else:
         imports.log_in_and_download_sesi_dr(browser, default_download_directory, list_of_nfs)
         imports.rename_pdf_sesi_dr(default_download_directory)
 
+    elif user_input_dict.get("website_choice") == op_list[9]: # iel
+        workbook_path = user_input_dict.get("input_excel_file")[0]
+        list_of_client_info = imports.read_excel(workbook_path)
+        browser = Selenium
+        region = "IEL"
+        download_dir = f"{Path().home()}\\Documents\\Documentos RPA FIEC"
+        default_download_directory = f"{download_dir}\\{region}"
+        list_of_nfs = []
+        for nf in list_of_client_info:
+            list_of_nfs.append(nf.number)
+        imports.log_in_and_download_iel(browser, default_download_directory, list_of_nfs)
+        imports.rename_pdf_iel(default_download_directory)
+
     elif user_input_dict.get("website_choice") == op_list[11]: #sesi albano
         workbook_path = user_input_dict.get("input_excel_file")[0]
         list_of_client_info = imports.read_excel(workbook_path)

@@ -169,6 +169,22 @@ def rename_pdf_sesi_albano(directory):
         pdf.close_pdf()
         file.move_file(old_name, new_name)
 
+def rename_pdf_iel(directory):
+    file = FileSystem()
+    pdf = PDF()
+    list_of_file_names = file.list_files_in_directory(directory)
+    for file_adr in list_of_file_names:
+        old_name = str(file_adr)
+        pdf.open_pdf(file_adr) 
+        rps_matches = pdf.find_text("Número do RPS")
+        rps = rps_matches[0].neighbours[0]
+        nf = old_name[-9:-4]
+        new_name = f"{old_name[:-15]}\\NF {nf} RPS {rps}.pdf"
+        pdf.close_pdf()
+        file.move_file(old_name, new_name)
+        
+
+
 #função para baixar as notas do sesi dr
 def log_in_and_download_sesi_dr(chrome_browser: Selenium, default_download_directory: str, nfs: list[int]):
     chrome_prefs = {
@@ -204,6 +220,41 @@ def log_in_and_download_sesi_dr(chrome_browser: Selenium, default_download_direc
         else:
             pass    
     chrome_browser.close_browser()
+
+# função para baixar as notas do iel
+def log_in_and_download_iel(chrome_browser: Selenium, default_download_directory: str, nfs: list[int]):
+    chrome_prefs = {
+        "download.default_directory": default_download_directory,
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "plugins.always_open_pdf_externally": True,
+    }
+    cont = 0
+    chrome_browser = Selenium()
+    chrome_browser.auto_close=False
+    url = "https://iss.fortaleza.ce.gov.br/grpfor/login.seam;jsessionid=1GC7+OZ2wq6sBwl0ZemSuXHB.pistol:iss-prod-02?cid=151891"
+    chrome_browser.open_chrome_browser(url=url, preferences=chrome_prefs)
+    while chrome_browser.does_page_contain_element('login:captchaDecor:captchaLogin'):
+        chrome_browser.wait_until_element_is_visible('login:password')
+        chrome_browser.input_text('login:username', '96287586320')
+        chrome_browser.input_text('login:password', 'IEL000178@')
+        chrome_browser.capture_element_screenshot('//*[@id="login:captchaDecor"]/img', 'captcha.png')
+        chrome_browser.input_text('login:captchaDecor:captchaLogin',anti_captcha("captcha.png"))
+        chrome_browser.click_element_if_visible('login:botaoEntrar')
+    for nf in nfs:
+        if type(nf) == int :
+            chrome_browser.go_to('https://iss.fortaleza.ce.gov.br/grpfor/pages/nfse/consultaNfsePorNumero.seam?cid=212315')
+            chrome_browser.input_text('consultarnfseForm:numNfse', nf)
+            chrome_browser.click_element('consultarnfseForm:j_id227')
+            chrome_browser.click_element_when_visible('//*[@id="consultarnfseForm:dataTable:0:j_id356"]/a')
+            chrome_browser.click_element_when_visible('//*[@id="j_id153:panelAcoes"]/tbody/tr/td[1]/input')
+            while not check_if_download_has_finished(default_download_directory):
+                pass
+            temp_filename_for_downloads(default_download_directory, nf)    
+        else:
+            pass    
+    chrome_browser.close_browser()
+
 
 def log_in_and_download_speedgov(download_dir: str, region: str, list_of_clients: list[ClientInfo], login: str, password:str):
     browser = Selenium()
