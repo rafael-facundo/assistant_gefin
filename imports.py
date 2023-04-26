@@ -87,9 +87,17 @@ def start_dialog(op_list: list[str]):
     dialog.add_file_input("add_pdf_file", 'Selecione um boleto', file_type="pdf")
     dialog.add_file_input("add_pdf_directory", 'Selecione o diretório das nfs', file_type="pdf")
     dialog.add_submit_buttons(["Executar", "Cancelar"])
-    user_input = dialog.run_dialog(90000, title="Assistente - GEFIN", height=550, width=400)
+    user_input = dialog.run_dialog(90000, title="Assistente - GEFIN", height=550, width=400, location="Center")
 
     return user_input
+
+def alert(aviso: str, height: int, width: int):
+    dialog = Assistant()
+    # dialog.add_image(r"Logo-FIEC-02-Color-1024-x-337.jpg")
+    dialog.add_heading('AVISO!!!', size="large")
+    dialog.add_heading(aviso, size="large")
+    # dialog.add_heading()
+    dialog.run_dialog(900000, 'AVISO: Assistente - GEFIN', height=height, width=width, location="Center")
 
 #função para ler planilha
 def read_excel(excel_file_path: str):
