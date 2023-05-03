@@ -45,6 +45,7 @@ else:
             list_of_nfs.append(nf.number)
         imports.log_in_and_download_iel(browser, default_download_directory, list_of_nfs)
         imports.rename_pdf_iel(default_download_directory)
+        imports.alert("Todos as notas foram baixadas.", 200, 430)
 
     elif user_input_dict.get("website_choice") == op_list[11]: #sesi albano
         workbook_path = user_input_dict.get("input_excel_file")[0]
@@ -56,6 +57,7 @@ else:
         default_download_directory = f"{download_dir}\\{region}"
         imports.log_in_and_download_speedgov(default_download_directory, region, list_of_client_info, "1241313", "380901")
         imports.rename_pdf_sesi_albano(default_download_directory)
+        imports.alert("Todos as notas foram baixadas.", 200, 430)
 
     elif user_input_dict.get("website_choice") == op_list[19]: #enviar emails
         boleto_directory = f"{Path().home()}\\Documents\\Documentos RPA FIEC\\boletos separados"
